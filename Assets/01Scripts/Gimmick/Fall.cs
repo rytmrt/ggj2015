@@ -3,7 +3,8 @@ using System.Collections;
 
 public class Fall : MonoBehaviour
 {
-    bool isRunning;
+    public bool isRunning;
+
 
 	// Use this for initialization
 	void Start () {
@@ -12,7 +13,7 @@ public class Fall : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-	
+	    
 	}
 
     //ギミックのオン、オフを切り替える
@@ -29,6 +30,7 @@ public class Fall : MonoBehaviour
 
     void OnTriggerEnter(Collider chara) {
         Vector3 charaPos = transform.position;
+        Debug.Log(isRunning);
         if (chara.tag == "Player" && isRunning)
         {
             chara.SendMessage("Fall");
