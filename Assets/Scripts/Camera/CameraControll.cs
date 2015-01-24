@@ -48,18 +48,20 @@ public class CameraControll : MonoBehaviour
 										var movementDirection = this.prevTouchPos - touchPos;
 										movementDirection.Normalize ();
 										// 移動量を調整
-										distance *= movementRate;
-										var movementv2 = movementDirection * distance;
+										var movementDistance = Vector2.Distance (this.touchStartPos, touchPos);
+										movementDistance *= movementRate;
+										var movement = movementDirection * movementDistance;
 										var movementv3 = Vector3.zero;
-										movementv3.Set (movementv2.x, 0, movementv2.y);
+										movementv3.Set (movement.x, 0, movement.y);
 										// 差分を移動させる
 										transform.position += movementv3;
 										// タッチ座標を1つ前として登録
 										this.prevTouchPos = touchPos;
 								}
 						} else { // その他
-								// 開始位置を初期化
+								// 初期化
 								this.touchStartPos.Set (-1, -1);
+								this.prevTouchPos.Set (-1, -1);
 						}
 				}
 		}
