@@ -12,7 +12,7 @@ public class GimmickExecutor : MonoBehaviour {
 
 	// Use this for initialization
 	protected void Start () {
-        this.isRunning = true;
+        this.GimmickOff();
 	}
 
     //ギミック作動
