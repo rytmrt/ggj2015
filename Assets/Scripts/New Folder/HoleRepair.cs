@@ -22,7 +22,7 @@ public class HoleRepair : MonoBehaviour {
 	void Update () {
             for (int i = 0; i < holes.Length; i++)
             {
-                if(!holes[i].GetComponent<Fall>().isRunning)
+                if(!holes[i].GetComponent<Fall>().running)
                 {
                     timeCount[i] += Time.deltaTime;
 

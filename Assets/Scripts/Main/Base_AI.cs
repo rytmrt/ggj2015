@@ -51,6 +51,7 @@ public class Base_AI : MonoBehaviour
 				rigidbody.velocity = Vector3.zero;
 				time_cnt = 0.0f;
 				this.Start();
+                transform.LookAt(point[next_point].transform);
 			}
 		}
 	}

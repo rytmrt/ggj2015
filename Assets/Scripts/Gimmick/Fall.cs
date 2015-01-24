@@ -1,14 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Fall : MonoBehaviour
+public class Fall : GimmickExecutor
 {
-    public bool isRunning;
-
-
 	// Use this for initialization
 	void Start () {
-        isRunning = true;
+        base.Start();
 	}
 	
 	// Update is called once per frame
@@ -16,26 +13,20 @@ public class Fall : MonoBehaviour
 	    
 	}
 
-    //ギミックのオン、オフを切り替える
-    void GimmickOn() {
-        isRunning = true;
-        renderer.enabled = true;
-    }
-    void GimmickOff() {
-        isRunning = false;
-        renderer.enabled = false;
-    }
-
-
-
     void OnTriggerEnter(Collider chara) {
         Vector3 charaPos = transform.position;
-        Debug.Log(isRunning);
-        if (chara.tag == "Player" && isRunning)
+        if (chara.tag == "Player")
         {
-            chara.SendMessage("Fall");
-            charaPos.y = chara.transform.position.y;
-            chara.transform.position = charaPos;
+            if (isRunning)
+            {
+                chara.SendMessage("Fall");
+                charaPos.y = chara.transform.position.y;
+                chara.transform.position = charaPos;
+            }
+            else 
+            {
+                //幸福度加算処理
+            }
         }
     }
 }

@@ -47,7 +47,7 @@ public class Track_AI : Base_AI
 	/// </summary>
 	void Slip()
 	{
-		GetComponent<Collider>().enabled = false;
+	//	GetComponent<Collider>().enabled = false;
 		isMove = false;
 		isSpin = true;
 	}
