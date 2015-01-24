@@ -1,95 +1,77 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class CameraControll : MonoBehaviour {
-    Vector3 prevPos;
-    Vector3 touchPos;
+public class CameraControll : MonoBehaviour
+{
+		// 移動を無視する長さ
+		[SerializeField]
+		private float ignoreLength;
+		[SerializeField]
+		private float movementRate;
 
-    [SerializeField]
-    Vector2 max;
+		// タッチ開始位置
+		private Vector2 touchStartPos;
+		private Vector2 prevTouchPos;
 
-    [SerializeField]
-    Vector2 min;
+		void Start ()
+		{
+				this.ignoreLength = 1.0f;
+		}
 
-    [SerializeField]
-    float speed;
+		void Update ()
+		{
+				// カメラを動かす
+				this.MoveCamera ();
+				// カメラを回す
+				this.RotateCamera ();
+				// カメラをズームする
+				this.ZoomCamera ();
+		}
 
-    enum TouchMode{
-        NONE,
-        SINGLE,
-        DOUBLE,
-    }
+		// カメラを動かす
+		private void MoveCamera ()
+		{
+				// タッチしている数が1つである
+				var touchNum = InputMgr.GetTouchCount ();
+				if (touchNum == 1) {
+						var touchState = InputMgr.GetTouchState (0);
+						if (touchState == TOUCH_STATE.DOWN) { // タッチ開始
+								// 開始位置を保存
+								this.touchStartPos = InputMgr.GetTouchScreenPos (0);
+						} else if (touchState == TOUCH_STATE.MOVE) { // 移動中
+								// 現在のタッチ位置を取得
+								var touchPos = InputMgr.GetTouchScreenPos (0);
+								// タッチ開始時より一定距離離れている
+								var distance = Vector2.Distance (this.touchStartPos, touchPos);
+								if (distance > this.ignoreLength) {
+										// 移動方向を取得
+										var movementDirection = this.prevTouchPos - touchPos;
+										movementDirection.Normalize ();
+										// 移動量を調整
+										distance *= movementRate;
+										var movementv2 = movementDirection * distance;
+										var movementv3 = Vector3.zero;
+										movementv3.Set (movementv2.x, 0, movementv2.y);
+										// 差分を移動させる
+										transform.position += movementv3;
+										// タッチ座標を1つ前として登録
+										this.prevTouchPos = touchPos;
+								}
+						} else { // その他
+								// 開始位置を初期化
+								this.touchStartPos.Set (-1, -1);
+						}
+				}
+		}
 
-    TouchMode mode;
+		// カメラを回す
+		private void RotateCamera ()
+		{
+		}
 
-    TOUCH_STATE prevState;
+		// カメラをズームする
+		private void ZoomCamera ()
+		{
+		}
 
-	// Use this for initialization
-	void Start () {
-        prevPos = Vector3.zero;
-        touchPos = Vector3.zero;
-        mode = TouchMode.NONE; 
-	}
-
-    void SlideMove()
-    {
-        touchPos = InputMgr.GetTouchScreenPos(0);
-
-        if (InputMgr.GetTouchState(0) == TOUCH_STATE.MOVE)
-        {
-            touchPos = InputMgr.GetTouchScreenPos(0);
-
-            Vector2 touchMove= prevPos - touchPos;
-            touchMove.Normalize();
-
-            touchMove *= speed;
-
-            Vector3 cameraMove = Vector3.zero;
-            cameraMove.Set(touchMove.x, 0, touchMove.y);
-
-
-
-            transform.position += cameraMove;
-        }
-
-
-        //カメラの位置を制限する
-        Vector3 camPos = transform.position;
-
-        if (transform.position.x > max.x)
-        {
-            camPos.x = max.x;
-            transform.position = camPos;
-        }
-        if (transform.position.x < min.x)
-        {
-            camPos.x = min.x;
-            transform.position = camPos;
-        }
-        if (transform.position.z > max.y)
-        {
-            camPos.z = max.y;
-            transform.position = camPos;
-        }
-        if (transform.position.z < min.y)
-        {
-            camPos.z = min.y;
-            transform.position = camPos;
-        }
-
-        prevPos = touchPos;
-
-    }
-
-	// Update is called once per frame
-	void Update () {
-        switch (InputMgr.GetTouchCount())
-        {
-            case 1:
-                SlideMove();
-                break;
-        }
-
-
-	}
 }
