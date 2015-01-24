@@ -13,6 +13,7 @@ public class Character_AI : MonoBehaviour
 	public bool isRun;
 	public GameObject[] point = new GameObject[3];
 
+
 	private bool isMove;
 	private int next_point;
 	private int length;
