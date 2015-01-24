@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Input_Touch : MonoBehaviour
 {
-	public float distance = 10; // Rayの届く距離
+	float distance = float.MaxValue; // Rayの届く距離
 
 	void Update()
 	{
@@ -11,6 +11,8 @@ public class Input_Touch : MonoBehaviour
 		{
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit = new RaycastHit();
+
+            Debug.DrawRay(ray.origin,ray.direction * distance,Color.green);
 
 			if (Physics.Raycast(ray, out hit, distance))
 			{

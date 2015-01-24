@@ -7,10 +7,12 @@ public class Tap_Event : TapBehaviour {
 	{
 		Debug.Log("tapdown");
 		// タップされたときの処理
+
 	}
 
 	public override void TapUp(ref RaycastHit hit)
 	{
 		// タップを離したときの処理
+        GetComponent<Gimmick>().GimmickOff();
 	}
 }
