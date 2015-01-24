@@ -571,7 +571,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1287892356}
   - 114: {fileID: 1287892355}
-  - 114: {fileID: 1287892357}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -593,8 +592,7 @@ MonoBehaviour:
   BGMList:
   - {fileID: 8300000, guid: f7f0ec4af6cf2a640bf0ff60b5099cd6, type: 3}
   - {fileID: 8300000, guid: f89e4e68bfd60af43ac1a4c98e601cec, type: 3}
-  SEList:
-  - {fileID: 0}
+  SEList: []
   MaxSE: 10
 --- !u!4 &1287892356
 Transform:
@@ -608,17 +606,45 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
---- !u!114 &1287892357
+--- !u!1 &1350385379
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1350385381}
+  - 114: {fileID: 1350385380}
+  m_Layer: 0
+  m_Name: PointBGM
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1350385380
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1287892354}
+  m_GameObject: {fileID: 1350385379}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 072c83db80e28cb4ba8fa16cc7cc35a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1350385381
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1350385379}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 44.8067017, y: 23.7072983, z: 2.42847776}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
 --- !u!1 &1560481728
 GameObject:
   m_ObjectHideFlags: 0
@@ -838,7 +864,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: GAME TITLE
+  m_Text: HAPPAY  SMAKER
 --- !u!222 &1873889961
 CanvasRenderer:
   m_ObjectHideFlags: 0
