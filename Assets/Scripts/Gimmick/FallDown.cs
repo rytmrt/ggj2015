@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Slip : GimmickExecutor {
+
+public class FallDown : GimmickExecutor {
 
 	// Use this for initialization
 	void Start () {
@@ -13,15 +14,16 @@ public class Slip : GimmickExecutor {
 	
 	}
 
-    void OnTriggerEnter(Collider car)
+    void OnTriggerEnter(Collider chara)
     {
-        if (car.tag == "Car" )
+        Vector3 charaPos = transform.position;
+        if (chara.tag == "Player")
         {
             if (isRunning)
             {
-                car.SendMessage("Slip");
+                chara.SendMessage("Slip");
             }
-            else 
+            else
             {
                 //幸福度加算処理
             }

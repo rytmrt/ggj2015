@@ -15,12 +15,10 @@ public class Gimmick : MonoBehaviour {
 
     public void GimmickOn()
     {
-        Debug.Log("GimmickOff");
         this.child.SendMessage("GimmickOn");
     }
     public void GimmickOff()
     {
-        Debug.Log("GimmickOn");
         this.child.SendMessage("GimmickOff");
     }
 }

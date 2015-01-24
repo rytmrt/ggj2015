@@ -15,11 +15,13 @@ public class GimmickExecutor : MonoBehaviour {
         this.isRunning = true;
 	}
 
+    //ギミック作動
     void GimmickOn() {
         this.isRunning = true;
         this.renderer.enabled = true;
     }
 
+    //ギミック停止
     void GimmickOff()
     {
         this.isRunning = false;
