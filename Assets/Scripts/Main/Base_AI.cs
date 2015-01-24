@@ -2,30 +2,31 @@
 using System.Collections;
 
 /// <summary>
-/// キャラがポイントに向かって進む処理
+/// オブジェクトがポイントに向かって進む処理
 /// 行ったり来たりする
 /// </summary>
 public class Base_AI : MonoBehaviour 
 {
 	private const float RUN_SPEED = 5.0f;
 	private const float WALK_SPEED = 2.0f;
+	private const float REBORN_TIME = 5.0f;
 
 	public GameObject[] point = new GameObject[3];
 	public bool isRun;
-
+	public bool isLoop;
 	protected bool isMove;
+	protected bool isReBorn;
+
 	private int next_point;
 	private int length;
 	private int plus;
 	private float speed;
 	private float time_cnt;
 
-	[SerializeField]
-	private float reborn_time = 3.0f;
-
 	protected void Start () 
 	{
 		transform.position = point[0].transform.position;
+		GetComponent<Collider>().enabled = true;
 		plus = 1;
 		isMove = true;
 		next_point = 1;
@@ -35,22 +36,21 @@ public class Base_AI : MonoBehaviour
 
 	protected void Update ()
 	{
-		Debug.Log("BASE");
 		if (isMove)
 		{
 			var vec = (point[next_point].transform.position - transform.position).normalized;
 			transform.position += vec * speed * Time.deltaTime;
 			var dis = Vector3.Distance(transform.position, point[next_point].transform.position);
 			if (dis < 0.5f) { Next_Point_Go(); }
-			Debug.Log(next_point);
 		}
-		else
+		else if (isReBorn)
 		{
 			time_cnt += Time.deltaTime;
-			if (time_cnt > reborn_time)
+			if (time_cnt > REBORN_TIME)
 			{
+				rigidbody.velocity = Vector3.zero;
 				time_cnt = 0.0f;
-				StartCoroutine("Start");
+				this.Start();
 			}
 		}
 	}
@@ -60,14 +60,18 @@ public class Base_AI : MonoBehaviour
 	/// </summary>
 	private void Next_Point_Go()
 	{
-		if (next_point >= (length-1) || next_point <= 0)
-			plus = -plus;
+		if (isLoop)
+		{
+			if (next_point >= (length - 1))
+				next_point = -1;
+		}
+		else
+		{
+			if (next_point >= (length - 1) || next_point <= 0)
+				plus = -plus;
+		}
 		next_point += plus;
 		transform.LookAt(point[next_point].transform);
 	}
-
-
-
-
 
 }

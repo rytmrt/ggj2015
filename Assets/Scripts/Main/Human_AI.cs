@@ -23,7 +23,14 @@ public class Human_AI : Base_AI
 	/// </summary>
 	public void Fall()
 	{
+		isReBorn = true;
 		isMove = false;
 		GetComponent<Collider>().enabled = false;
+	}
+
+	void Slip()
+	{
+		isMove = false;
+
 	}
 }

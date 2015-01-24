@@ -38,7 +38,6 @@ public class Input_Touch : MonoBehaviour
 					target.TapUp(ref hit);
 				}
 			}
-
 		}
 	}
 }
