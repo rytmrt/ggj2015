@@ -10,19 +10,23 @@ public class Character_AI : MonoBehaviour
 	private const float RUN_SPEED = 5.0f;
 	private const float WALK_SPEED = 2.0f;
 
-	public bool isRun;
 	public GameObject[] point = new GameObject[3];
-
+	public bool isRun;
 
 	private bool isMove;
 	private int next_point;
 	private int length;
 	private int plus;
 	private float speed;
+	private float time_cnt;
+
+	[SerializeField]
+	private float wait_time = 1.0f;
+	private float reborn_time = 3.0f;
 
 	private IEnumerator Start () 
 	{
-		yield return new WaitForSeconds(1.0f);
+		yield return new WaitForSeconds(wait_time);
 		transform.position = point[0].transform.position;
 		plus = 1;
 		isMove = true;
@@ -41,6 +45,15 @@ public class Character_AI : MonoBehaviour
 			if (dis < 0.5f) { Next_Point_Go(); }
 			Debug.Log(next_point);
 		}
+		else
+		{
+			time_cnt += Time.deltaTime;
+			if (time_cnt > reborn_time)
+			{
+				time_cnt = 0.0f;
+				StartCoroutine("Start");
+			}
+		}
 	}
 
 	/// <summary>
@@ -51,18 +64,21 @@ public class Character_AI : MonoBehaviour
 		if (next_point >= (length-1) || next_point <= 0)
 			plus = -plus;
 		next_point += plus;
+		transform.LookAt(point[next_point].transform);
+		
+	
 	}
 
 	/// <summary>
 	/// キャラが穴に落ちる
 	/// </summary>
-	void Fall()
+	public  void Fall()
 	{
 		isMove = false;
 		GetComponent<Collider>().enabled = false;
 	}
 
-	
+
 
 
 }
