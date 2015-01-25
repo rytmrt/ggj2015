@@ -2,60 +2,43 @@
 using System.Collections;
 
 public class GimmickMgr : MonoBehaviour {
-    GameObject[] allGimmicks;
-    Gimmick[] allGimmickScript;
+    [SerializeField]
+    GameObject[] gimmickGroups;
 
+    //現在の段階
+    int nowStage;
 
     [SerializeField]
-    int limitGimmicks;
-
-    float timeCounter;
-
-    [SerializeField]
-    float gimmickRunTime;
+    int[] StageArgHappiness;
 
 	// Use this for initialization
 	void Start () {
-       this.allGimmicks = GameObject.FindGameObjectsWithTag("Gimmick");
-       allGimmickScript = new Gimmick[allGimmicks.Length];
-       for (int i = 0; i < allGimmicks.Length; i++)
-       {
-           allGimmickScript[i] = allGimmicks[i].GetComponent<Gimmick>();
-       }
+        gimmickGroups = GameObject.FindGameObjectsWithTag("GimmickGroup");
+        nowStage = 0;
 	}
 
-    //ギミックの作動
-    void GimmickRun() {
-        int runningGimmicks = 0;
-
-        this.timeCounter += Time.deltaTime;
-
-        //ギミック作動時間になったら処理開始
-        if (timeCounter >= gimmickRunTime)
+    //段階によってギミックの動作数を増やす
+    void StageExec() {
+        for (int i = 0; i < nowStage + 1; i++)
         {
-            //現在動いているギミックの数を取得
-            for (int i = 0; i < allGimmicks.Length; i++)
-            {
-                if (allGimmickScript[i].running)
-                {
-                    runningGimmicks++;
-                }
-            }
-
-            //現在動いているギミック数が最大ギミック数を超えていなかったらいずれかのギミック作動
-            if (runningGimmicks < limitGimmicks)
-            {
-                var runGimmickNum = Random.Range(0, allGimmicks.Length);
-                allGimmicks[runGimmickNum].SendMessage("GimmickOn");
-            }
-
-            this.timeCounter = 0;
-
+            gimmickGroups[i].SendMessage("GroupOn");
         }
     }
-	
+
+    //現在の段階をみる
+    void StageGet() {
+        for (int i = nowStage ; i < StageArgHappiness.Length; i++)
+        {
+            if (StageArgHappiness[i] >= ScoreMgr.happiness)
+            {
+                nowStage = i;
+            }
+        }
+    }
+
 	// Update is called once per frame
 	void Update () {
-        this.GimmickRun();
+        StageExec();
+        StageGet();
 	}
 }

@@ -14,7 +14,7 @@ public class GimmickExecutor : MonoBehaviour {
     [SerializeField]
     RiskRank rank;
 
-    int[] HAPPINESS_TABLE = { 50, 20, 10 };
+    int[] HAPPINESS_TABLE = { 100, 20, 10 };
 
     protected bool ArleadyAdd;
 

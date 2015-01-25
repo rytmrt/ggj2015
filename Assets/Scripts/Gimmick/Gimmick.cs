@@ -25,6 +25,8 @@ public class Gimmick : MonoBehaviour {
     {
         this.child.SendMessage("GimmickOn");
     }
+
+    //ギミックをオフにする処理。グループからオフにされた場合には引数にtrueを渡す
     public void GimmickOff()
     {
         this.child.SendMessage("GimmickOff");

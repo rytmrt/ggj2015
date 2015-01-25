@@ -11,7 +11,7 @@ public class ScoreMgr : MonoBehaviour {
 
     //現在の幸福値を取得
     public static int happiness {
-        get { return happiness; }
+        get { return nowHappiness; }
     }
 
 	// Use this for initialization
@@ -26,6 +26,10 @@ public class ScoreMgr : MonoBehaviour {
         if (nowHappiness > MAX_HAPPINESS) 
         {
             nowHappiness = MAX_HAPPINESS;
+        }
+        else if(nowHappiness < 0)
+        {
+            nowHappiness = 0;
         }
     }
 	
