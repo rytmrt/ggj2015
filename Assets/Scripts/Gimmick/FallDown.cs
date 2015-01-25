@@ -21,7 +21,7 @@ public class FallDown : GimmickExecutor {
         {
             if (isRunning)
             {
-                chara.SendMessage("Slip");
+                chara.SendMessage("FallDown");
                 this.OnContactInRunning();
             }
             else
