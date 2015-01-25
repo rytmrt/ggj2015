@@ -11,9 +11,6 @@ public class Input_Touch : MonoBehaviour
 		{
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit = new RaycastHit();
-
-            Debug.DrawRay(ray.origin,ray.direction * distance,Color.green);
-
 			if (Physics.Raycast(ray, out hit, distance))
 			{
 				GameObject selectedGameObject = hit.collider.gameObject;
