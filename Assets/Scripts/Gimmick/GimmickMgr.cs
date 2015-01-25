@@ -13,27 +13,37 @@ public class GimmickMgr : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        gimmickGroups = GameObject.FindGameObjectsWithTag("GimmickGroup");
         nowStage = 0;
 	}
 
     //段階によってギミックの動作数を増やす
     void StageExec() {
-        for (int i = 0; i < nowStage + 1; i++)
+        if (nowStage < gimmickGroups.Length)
         {
-            gimmickGroups[i].SendMessage("GroupOn");
+            for (int i = 0; i < nowStage + 1; i++)
+            {
+                gimmickGroups[i].SendMessage("GroupOn");
+            }
         }
     }
 
     //現在の段階をみる
     void StageGet() {
-        for (int i = nowStage ; i < StageArgHappiness.Length; i++)
+
+        Debug.Log(nowStage);
+        for (int i = 0 ; i < StageArgHappiness.Length; i++)
         {
-            if (StageArgHappiness[i] >= ScoreMgr.happiness)
+            if (StageArgHappiness[i] <= ScoreMgr.happiness)
             {
-                nowStage = i;
+                Debug.Log("Run");
+
+                if (i > nowStage)
+                {
+                    nowStage = i + 1;
+                }
             }
         }
+
     }
 
 	// Update is called once per frame
