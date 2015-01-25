@@ -49,5 +49,6 @@ public class GimmickExecutor : MonoBehaviour {
     protected void OnContactInNotRunning()
     {
         ScoreMgr.addHappiness(HAPPINESS_TABLE[(int)rank]);
+        ScoreMgr.addSaves();
     }
 }

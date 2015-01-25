@@ -7,6 +7,7 @@ public class ScoreMgr : MonoBehaviour {
 
     //助けた人数
     private static int saves;
+    private static int notSaves;
 
 
     //最大の幸福値とスタートの幸福値
@@ -38,11 +39,21 @@ public class ScoreMgr : MonoBehaviour {
             nowHappiness = 0;
         }
     }
-	
+
+    public static void addSaves()
+    {
+        saves++;
+    }
+
+    public static void addNotSaves() {
+        notSaves++;
+    }
+
+
 	// Update is called once per frame
 	void Update () {
 
-        if (nowHappiness < 0)
+        if (nowHappiness <= 0 || nowHappiness >= MAX_HAPPINESS)
         {
             FadeManager.Instance.LoadLevel("Result", 0.5f);
         }
