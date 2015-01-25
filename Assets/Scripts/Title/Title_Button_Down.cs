@@ -14,7 +14,7 @@ public class Title_Button_Down : MonoBehaviour
 	{
 		if (!FadeManager.Instance.isFading)
 		{
-			FadeManager.Instance.LoadLevel("Stage_1", 0.5f);
+			FadeManager.Instance.LoadLevel("Select", 0.5f);
 		}
 	}
 

@@ -20,4 +20,9 @@ public class Select_Button_Down : MonoBehaviour {
 	{
 		FadeManager.Instance.LoadLevel("Stage_1", 0.5f);
 	}
+
+	public void Stage_2_Button_Down()
+	{
+		FadeManager.Instance.LoadLevel("Stage_2", 0.5f);
+	}
 }
