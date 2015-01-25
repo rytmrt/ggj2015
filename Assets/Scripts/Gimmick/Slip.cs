@@ -20,10 +20,16 @@ public class Slip : GimmickExecutor {
             if (isRunning)
             {
                 car.SendMessage("Slip");
+                this.OnContactInRunning();
             }
             else 
             {
-                //幸福度加算処理
+                if (!ArleadyAdd)
+                {
+                    //幸福度加算処理
+                    OnContactInNotRunning();
+                    ArleadyAdd = true;
+                }
             }
         }
     }

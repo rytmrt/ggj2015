@@ -22,10 +22,16 @@ public class Fall : GimmickExecutor
                 chara.SendMessage("Fall");
                 charaPos.y = chara.transform.position.y;
                 chara.transform.position = charaPos;
+                OnContactInRunning();
             }
             else 
             {
-                //幸福度加算処理
+                if (!ArleadyAdd)
+                {
+                    //幸福度加算処理
+                    OnContactInNotRunning();
+                    ArleadyAdd = true;
+                }
             }
         }
     }

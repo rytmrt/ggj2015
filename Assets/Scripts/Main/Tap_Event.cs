@@ -5,9 +5,7 @@ public class Tap_Event : TapBehaviour {
 
 	public override void TapDown(ref RaycastHit hit)
 	{
-		Debug.Log("tapdown");
 		// タップされたときの処理
-
 	}
 
 	public override void TapUp(ref RaycastHit hit)

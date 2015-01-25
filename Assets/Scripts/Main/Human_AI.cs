@@ -28,9 +28,4 @@ public class Human_AI : Base_AI
 		GetComponent<Collider>().enabled = false;
 	}
 
-	void Slip()
-	{
-		isMove = false;
-
-	}
 }
