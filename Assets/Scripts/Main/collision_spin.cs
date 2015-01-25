@@ -15,10 +15,8 @@ public class collision_spin : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col)
 	{
-		if (col.name == "Track")
-		{
-			col.SendMessage("Slip");
-			Destroy(this.gameObject);
-		}
+
+		col.SendMessage("FallDown");
+		Destroy(this.gameObject);
 	}
 }
