@@ -6,7 +6,7 @@ public class ScoreMgr : MonoBehaviour {
     private static int nowHappiness;
     
     //最大の幸福値とスタートの幸福値
-    private const int MAX_HAPPINESS = 1000;
+    public const int MAX_HAPPINESS = 1000;
     private const int START_HAPPINESS = 100;
 
     //現在の幸福値を取得
