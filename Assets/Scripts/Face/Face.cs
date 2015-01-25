@@ -15,8 +15,13 @@ public class Face : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         float parcent = (float)ScoreMgr.happiness/(float)ScoreMgr.MAX_HAPPINESS;
-        int Expression =(int)(parcent / 0.25f);
+        int expression =(int)(parcent / 0.25f);
 
-        img.sprite = face[Expression];
+        if (expression > face.Length)
+        {
+            expression = face.Length - 1;
+        }
+
+        img.sprite = face[expression];
 	}
 }
