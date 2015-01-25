@@ -45,27 +45,22 @@ public class CameraControll : MonoBehaviour
 			var touchState = InputMgr.GetTouchState (0);
 			if (touchState == TOUCH_STATE.DOWN) { // タッチ開始
 				// 開始位置を保存
-				this.touchStartPos = InputMgr.GetTouchScreenPos (0);
+				var touchPos = InputMgr.GetTouchScreenPos (0) + InputMgr.GetTouchScreenPos (1);
+				touchPos *= 0.5f;
+				this.touchStartPos = touchPos;
 			}
 			else if (touchState == TOUCH_STATE.MOVE) { // 移動中
 				// 現在のタッチ位置を取得
-				var touchPos = InputMgr.GetTouchScreenPos (0);
+				var touchPos = InputMgr.GetTouchScreenPos (0) + InputMgr.GetTouchScreenPos (1);
+				touchPos *= 0.5f;
 				// タッチ開始時より一定距離離れている
 				var distance = Vector2.Distance (this.touchStartPos, touchPos);
 				if (distance > this.ignoreLength) {
 					// 前回のタッチ座標が初期位置でなければカメラを移動
 					if (this.prevTouchPos != this.INITIAL_TOUCH_POS) {
 						// 回転方向を取得
-						var direction = this.touchStartPos - touchPos;
-						float angle = 0;
-						var i = direction.x;
-						Debug.Log(i);
-						if (i < 0) {
-							angle = 1;
-						}
-						else if (i > 0) {
-							angle = -1;
-						}
+						var direction = this.prevTouchPos - touchPos;
+						float angle = direction.x > 0 ? 1.0f : direction.x < 0 ? -1.0f : 0;
 						// 回す！
 						this.transform.RotateAround(this.lookAtTerget.transform.position, Vector3.up, angle * this.movementRate);
 					}
