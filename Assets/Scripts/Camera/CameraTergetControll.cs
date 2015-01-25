@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class CameraControll : MonoBehaviour
+public class CameraTergetControll : MonoBehaviour
 {
 	// タッチの初期位置
 	private readonly Vector2 INITIAL_TOUCH_POS = new Vector2(-1, -1);
@@ -9,8 +9,6 @@ public class CameraControll : MonoBehaviour
 	[SerializeField] private float ignoreLength;
 	// 移動量
 	[SerializeField] private float movementRate;
-	// カメラが見る場所
-	[SerializeField] private GameObject lookAtTerget;
 	// タッチ開始位置
 	private Vector2 touchStartPos;
 	private Vector2 prevTouchPos;
@@ -18,16 +16,12 @@ public class CameraControll : MonoBehaviour
 	void Start ()
 	{
 		this.inisializeTouchPos();
-		var tergetPos = this.transform.forward * 10;
 	}
 
 	void Update ()
 	{
-		this.transform.LookAt(lookAtTerget.transform);
-		// カメラを回す
-		this.RotateCamera ();
-		// カメラをズームする
-		this.ZoomCamera ();
+		// カメラを動かす
+		this.MoveCamera ();
 	}
 
 	// タッチ位置を初期化
@@ -36,18 +30,17 @@ public class CameraControll : MonoBehaviour
 		this.prevTouchPos = this.INITIAL_TOUCH_POS;
 	}
 
-	// カメラを回す
-	private void RotateCamera ()
+	// カメラを動かす
+	private void MoveCamera ()
 	{
-		// タッチしている数が2つである
+		// タッチしている数が1つである
 		var touchNum = InputMgr.GetTouchCount ();
-		if (touchNum == 2) {
+		if (touchNum == 1) {
 			var touchState = InputMgr.GetTouchState (0);
 			if (touchState == TOUCH_STATE.DOWN) { // タッチ開始
 				// 開始位置を保存
 				this.touchStartPos = InputMgr.GetTouchScreenPos (0);
-			}
-			else if (touchState == TOUCH_STATE.MOVE) { // 移動中
+			} else if (touchState == TOUCH_STATE.MOVE) { // 移動中
 				// 現在のタッチ位置を取得
 				var touchPos = InputMgr.GetTouchScreenPos (0);
 				// タッチ開始時より一定距離離れている
@@ -55,34 +48,25 @@ public class CameraControll : MonoBehaviour
 				if (distance > this.ignoreLength) {
 					// 前回のタッチ座標が初期位置でなければカメラを移動
 					if (this.prevTouchPos != this.INITIAL_TOUCH_POS) {
-						// 回転方向を取得
-						var direction = this.touchStartPos - touchPos;
-						float angle = 0;
-						var i = direction.x;
-						Debug.Log(i);
-						if (i < 0) {
-							angle = 1;
-						}
-						else if (i > 0) {
-							angle = -1;
-						}
-						// 回す！
-						this.transform.RotateAround(this.lookAtTerget.transform.position, Vector3.up, angle * this.movementRate);
+						// 移動方向を取得
+						var movementDirection = this.prevTouchPos - touchPos;
+						movementDirection.Normalize ();
+						// 移動量を調整
+						var movementDistance = Vector2.Distance (this.prevTouchPos, touchPos);
+						movementDistance *= movementRate;
+						var movement = movementDirection * movementDistance;
+						var movementv3 = Vector3.zero;
+						movementv3.Set (movement.x, 0.0f, movement.y);
+						// 移動させる
+						transform.position += movementv3;
 					}
 					// タッチ座標を1つ前として登録
 					this.prevTouchPos = touchPos;
 				}
-			}
-			else if (touchState != TOUCH_STATE.MOVE && touchState != TOUCH_STATE.DOWN) { // 開始と移動以外
+			} else { // その他
 				// 初期化
 				this.inisializeTouchPos();
 			}
 		}
 	}
-
-	// カメラをズームする
-	private void ZoomCamera ()
-	{
-	}
-
 }
